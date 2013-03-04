@@ -35,7 +35,7 @@ unless File.exists?("#{node['magento']['dir']}/index.php")
 
   execute "untar-magento" do
     cwd node['magento']['dir']
-    command "tar -zxvf #{Chef::Config[:file_cache_path]}/magento.tar.gz"
+    command "tar -zxvf --strip-components=1 #{Chef::Config[:file_cache_path]}/magento.tar.gz"
   end
 
   execute "set-perms" do
