@@ -87,8 +87,8 @@ action :link do
     cwd new_resource.project_path
     user "root"
     command "$HOME/bin/modman link #{new_resource.path} --force"
-    only_if do
-      ::File.exists?("#{new_resource.project_path}/.modman")
+    not_if do
+      `cd #{new_resource.project_path} && modman list | grep '#{new_resource.name}'` != ''
     end
   end
   new_resource.updated_by_last_action(true)
